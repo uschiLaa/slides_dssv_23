@@ -1,0 +1,131 @@
+---
+title: "New tour methods for visualizing high-dimensional data"
+subtitle: "**Ursula Laa** <br> University of Natural Resources and Life Sciences, Vienna"
+format:
+  revealjs:
+    theme: [default, 'boku.scss']
+    scrollable: true
+    slide-number: true
+    code-line-numbers: false
+    reference-location: document
+    preview-links: auto
+    logo: 'BOKU-logo.svg'
+    footer: "New tour methods"
+    # embed-resources: true
+    chalkboard:
+      buttons: false
+---
+## Tour visualization
+View data in more than 3 dimensions, by animating an interpolated sequence of low-D projections, e.g. hypercube in 6d or numeric measurements from  `palmerpenguins`
+
+::: {.v-center-container}
+<img src="c6.gif" width = "45%"/>        </a>
+<img src="penguins2d.gif" width = "45%"/> 
+:::
+
+
+## What is new?
+
+Recent work has focused on two questions:
+
+#### How can we use tours in the case of **large data**?
+
+- Large number of **observations**: overplotting can hide features, especially in the case of concave distributions &rarr; **slice tour** [Laa et al (2020)](https://doi.org/10.1080/10618600.2020.1777140)
+- Large number of **variables**: projected data points tend to fall close to the center (crowding problem) &rarr; **sage tour** [Laa et al (2021)](https://doi.org/10.1080/10618600.2021.1963264)
+
+## What is new?
+#### Can we make tour displays interactive to learn more?
+
+- Having **manual controls** of the projection allows the viewer to understand which variables are important, e.g. for separating groups &rarr; [Laa et al (2023)](https://doi.org/10.1080/10618600.2023.2206459) **main topic today**
+- Leverage javascript interfaces, shiny apps, etc. to build an **interactive display**, for example `detourr` or `langevitour`
+
+The history and some of these new developments were summarized in [Lee et al (2021)](https://doi.org/10.1002/wics.1573)
+
+## New approach to manual control
+
+**Idea:** in the axis display of the projection matrix the user should be able to manually change the contribution of one selected variable. 
+
+Two technical challenges:
+
+- we need to have interactive cursor location controls that can be mapped back to changes in the projection matrix &rarr; using `Mathematica` as a playground for experiments
+- we need to ensure the updated matrix is still orthonormal at each step &rarr; when changing one variable contribution we need to update the remaining projection matrix as well
+
+## Simple algorithm
+
+1. Select a variable $m$ and manually adjust the contribution in the axis display
+2. Convert the updated position to an updated entry for $m$ in the projection matrix
+3. Orthonormalize the projection matrix using Gram-Schmidt
+
+Note that the updated position is not exactly tracking the mouse because we orthonormalize after updating. Enforcing the exact position is possible (see paper appendix) but not needed when tracking in small increments.
+
+## First view
+
+Manually exploring projections of the `palmerpenguins`
+
+<img src="exploring_penguin_data.gif" width = "90%"/> 
+
+## Another layer
+
+We also allow the user to manually explore **slices** of the data - these are sections of the data where points are within a maximum distance $h$ from the current projection plane.
+
+The plane is anchored by a **center point** that can be shifted by the user to move the slice along a selected direction orthogonal to the projection plane.
+
+The **manual controls** allow for interactive selection of the slice height $h$ and updating of the center point (numerically or via a star plot display).
+
+## Exploring classification boundaries
+
+We fit a random forest model to the `palmerpenguins` data, to predict the penguin species based on the four numeric measurements. To explore the model we:
+
+1. predict the species in a dense grid across the 4D data space
+2. examine projections manually
+3. explore slices through the center
+4. manually shift the slice center
+
+An additional step could be to compare to an alternative model.
+
+## Exploring projections
+
+Random forest model predictions
+
+<img src="exploring_penguinrf.gif" width = "90%"/> 
+
+## Shifting the slice center
+
+<iframe src="https://player.vimeo.com/video/747585410?h=ba00969335" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/747585410">penguins_exploring_manually.mp4</a> from <a href="https://vimeo.com/user184233069">Ursula Laa</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+## Software implementation
+
+The manual tour as described is available as a **Mathematica** package with the main function `SliceDynamic`, see [https://github.com/uschiLaa/mmtour](https://github.com/uschiLaa/mmtour)
+
+It has also inspired new functions in the `tourr` package, available in the latest version on **CRAN**:
+
+- `radial_tour` decreases the contribution of one variable to $0$ in small steps, and back to the original value
+- `manual_slice` moves the slicing center point along a variable axis
+
+
+
+
+## Interpolation algorithm
+
+Apart from interactive manual control, we are also working on new basis interpolation methods that can preserve orientation in the basis. Interpolation via **Givens rotations**, as described in [Buja et al (2005)](https://doi:10.1016/S0169-7161(04)24014-7), has been implemented in the `woylier` package available on CRAN.
+
+Orientation in the plane may be important during a **guided tour** that is optimizing a **projection pursuit index** that is not rotation invariant, see discussion in [Laa and Cook (2020)](https://doi.org/10.1007/s00180-020-00954-8).
+
+## Simple example
+
+Optimizing an index that is looking for functional dependence, with simulated data that contains a sine-curve with geodesic interpolation (left) or Givens interpolation (right)
+
+::: {.v-center-container}
+<img src="sine_anim_geodesic.gif" width = "45%"/>        </a>
+<img src="sine_anim_givens.gif" width = "45%"/> 
+:::
+
+## Summary
+
+- New manual tour interface in Mathematica allows the viewer to inspect different projections and slices of the data
+- Inspecting slices is especially useful if we have a large number of data points, for example exploring model predictions across the data space
+- New interpolation methods can help the projection pursuit guided tour when the index is not rotation invariant
+- The work was implemented in Mathematica and R, all code is available via GitHub or CRAN
+
+
