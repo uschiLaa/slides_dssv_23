@@ -91,8 +91,8 @@ Random forest model predictions
 
 ## Shifting the slice center
 
-<iframe src="https://player.vimeo.com/video/747585410?h=ba00969335" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/747585410">penguins_exploring_manually.mp4</a> from <a href="https://vimeo.com/user184233069">Ursula Laa</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<iframe src="https://player.vimeo.com/video/747590472?h=9797267d61" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/747590472">penguins_slicing_manually.mp4</a> from <a href="https://vimeo.com/user184233069">Ursula Laa</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 ## Software implementation
 
@@ -128,4 +128,17 @@ Optimizing an index that is looking for functional dependence, with simulated da
 - New interpolation methods can help the projection pursuit guided tour when the index is not rotation invariant
 - The work was implemented in Mathematica and R, all code is available via GitHub or CRAN
 
+## Thank you!
+
+<br>
+
+Work on the manual tour was done in collaboration with **Alex Aumann**, **Di Cook** and **German Valencia**.
+
+<br>
+
+Work on Givens interpolation is done in collaboration with **Zoljargal Batsaikhan** and **Di Cook**.
+
+<br>
+
+These slides are made with Quarto using a template prepared by **Matthias Schlögl**.
 
