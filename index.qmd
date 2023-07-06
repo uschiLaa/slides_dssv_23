@@ -1,6 +1,6 @@
 ---
 title: "New tour methods for visualizing high-dimensional data"
-subtitle: "**Ursula Laa** <br> University of Natural Resources and Life Sciences, Vienna"
+subtitle: "**Ursula Laa** <br> University of Natural Resources and Life Sciences, Vienna <br> <font color='black'> uschilaa.github.io/slides_dssv_23 </font> "
 format:
   revealjs:
     theme: [default, 'boku.scss']
@@ -10,7 +10,7 @@ format:
     reference-location: document
     preview-links: auto
     logo: 'BOKU-logo.svg'
-    footer: "New tour methods"
+    footer: "uschilaa.github.io/slides_dssv_23"
     # embed-resources: true
     chalkboard:
       buttons: false
